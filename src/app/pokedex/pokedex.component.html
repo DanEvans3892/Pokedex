@@ -50,19 +50,9 @@
                                         <!-- <img src="https://2.bp.blogspot.com/-4wUf70q3hYI/XasqSnSWIzI/AAAAAAABz8k/VZrKd_I2eVUS43_61tm2tSNu_vS0CEKowCK4BGAYYCw/s1600/134Vaporeon_XY_anime.png" alt=""> -->
                                         <h4>All Pokemons list</h4>
                                         <ul>
-                                            <li>Charmander</li>
-                                            <li>Bulbassauro</li>
-                                            <li>Squirtle</li>
-                                            <li>Pikachu</li>
-                                            <li>Pikachu</li>
-                                            <li>Pikachu</li>
-                                            <li>Pikachu</li>
-                                            <li>Pikachu</li>
-                                            <li>Pikachu</li>
-                                            <li>Pikachu</li>
-                                            <li>Pikachu</li>
-                                            <li>Pikachu</li>
-                                            <li>Pikachu</li>
+                                            <li *ngFor="let pokemon of pokemons">
+                                                {{ pokemon }}
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
