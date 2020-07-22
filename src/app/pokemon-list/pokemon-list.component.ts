@@ -30,13 +30,13 @@ export class PokemonListComponent implements OnInit {
 
     getPokemonsInfo( data ) {
         for (const [i, arrayPokemons] of data.results.entries()) {
-            // Carregando o nome dos Pokemons
+            // Loading Pokemon names
             this.pokemonList.push({ name: arrayPokemons.name, image: '' });
 
-            // Inserindo a pokebola nas imagens
+            // Inserting pokeball image
             this.pokemonList[i].image = 'https://img.elo7.com.br/product/zoom/28E57AD/pokebola-scanncut.jpg';
 
-            // Carregando as imagens dos Pokemons
+            // Loading Pokemon images
             this.pokemonListService.getPokemonImage( arrayPokemons.url ).subscribe(
                 pokeInfo => this.pokemonList[i].image = pokeInfo.sprites.front_default
             );
