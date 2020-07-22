@@ -1,5 +1,4 @@
-export interface modelPokemonList {
-    pokeName: string;
-    pokeUrl: string;
-    PokeImage: string;
+export interface ModelPokemonList {
+    name: string;
+    image: string;
 }

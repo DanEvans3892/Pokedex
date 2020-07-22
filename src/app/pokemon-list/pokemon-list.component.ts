@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PokemonListService } from '../pokemon-list/pokemon-list.service';
-import { modelPokemonList } from './pokemon-list.model';
+import { ModelPokemonList } from './pokemon-list.model';
 
 @Component({
     selector: 'pokemon-list-component',
@@ -9,44 +9,37 @@ import { modelPokemonList } from './pokemon-list.model';
 })
 export class PokemonListComponent implements OnInit {
 
-    apiPokemonList: modelPokemonList[];
-    arrayPokemonList: any = [];
+    pokemonList: ModelPokemonList[] = [];
+    pokemonListInfo: any;
 
-    constructor( private PokemonListService: PokemonListService ) { }
+    constructor( private pokemonListService: PokemonListService ) { }
 
     ngOnInit(): void {
-        // this.pokemonList = ['Charmander', 'Bulbasaur'];
-        // this.pokemonList = this.pokemonListService.getPokemons();
         this.getPokemons();
     }
 
     getPokemons(){
-        this.PokemonListService.getPokemons().subscribe(
-            // dados => this.apiPokemonList = dados.results
-            // dados => this.getPokemonsImages( dados.results )
+        // this.pokemonList = [ { name: 'Charmander', url: '', image: ''}, { name: 'Bulbasaur', url: '', image: ''} ];
+
+        this.pokemonListService.getPokemons().subscribe(
+            // console.log
+            // dados => this.pokemonList = dados.results
+            dados => this.getPokemonsInfo( dados )
         );
     }
 
-    getPokemonsImages( data ){
-        // for (let i = 0; i < data.length; i++) {
-            // this.arrayPokemonList[i].push({ pokeName: data[i].name, pokeImage: '' });
+    getPokemonsInfo( data ) {
+        for (const [i, arrayPokemons] of data.results.entries()) {
+            // Carregando o nome dos Pokemons
+            this.pokemonList.push({ name: arrayPokemons.name, image: '' });
 
-            // this.PokemonListService.getPokemonImage( data[i].url ).subscribe(
-            //     // resultPokemon => this.insertImageArray( i, resultPokemon.sprites.front_default )
-            //     function(resultPokemon){
-            //         // this.arrayPokemonList.push({ pokeImage: resultPokemon.sprites.front_default });
-            //         this.arrayPokemonList[i].pokeImage = 'oi';
-            //     }
-            // );
-        // }
-        console.log( this.arrayPokemonList );
+            // Inserindo a pokebola nas imagens
+            this.pokemonList[i].image = 'https://img.elo7.com.br/product/zoom/28E57AD/pokebola-scanncut.jpg';
+
+            // Carregando as imagens dos Pokemons
+            this.pokemonListService.getPokemonImage( arrayPokemons.url ).subscribe(
+                pokeInfo => this.pokemonList[i].image = pokeInfo.sprites.front_default
+            );
+        }
     }
-
-    // insertImageArray( index, data ) {
-        // this.arrayPokemonList[index].push( this.arrayPokemonList[index].pokeImage = data );
-        // this.arrayPokemonList[index].image = data;
-        // this.arrayPokemonList[index].push({ pokeImage: data });
-        // console.log( this.arrayPokemonList[index] );
-        // console.log( data );
-    // }
 }
